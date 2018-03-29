@@ -1,0 +1,13 @@
+package-lock.json
+release
+dist
+log
+/.idea
+.settings/
+/.sass-cache
+.DS_Store
+Thumbs.db
+.classpath
+.project
+*.swp
+node_modules
