@@ -11,3 +11,4 @@ Thumbs.db
 .project
 *.swp
 node_modules
+build
