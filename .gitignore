@@ -12,3 +12,4 @@ Thumbs.db
 .project
 *.swp
 node_modules
+samples/*/build/contracts/
