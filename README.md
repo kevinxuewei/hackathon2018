@@ -28,4 +28,17 @@ install truffle
 npm install -g truffle
 ```
 
+truffle contract compile
+```sh
+truffle compile
+```
 
+truffle contract migrate(install)
+```sh
+truffle migrate
+```
+
+start web
+```sh
+npm run start
+```
