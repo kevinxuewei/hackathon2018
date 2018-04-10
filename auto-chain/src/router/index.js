@@ -31,7 +31,7 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path: '/ttt',
+      path: '/test',
       name: 'Test',
       component: Test
     }

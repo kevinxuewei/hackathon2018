@@ -1,31 +1,47 @@
 <template>
   <div>
-    <tabbar style="position: fixed">
-      <tabbar-item>
-        <span slot="label">Wechat</span>
-      </tabbar-item>
-      <tabbar-item show-dot>
-        <span slot="label">Message</span>
-      </tabbar-item>
-      <tabbar-item selected link="/component/demo">
-        <span slot="label">Explore</span>
-      </tabbar-item>
-      <tabbar-item badge="2">
-        <span slot="label">News</span>
-      </tabbar-item>
-    </tabbar>
+    <group>
+      <cell :title="$t('Total')" :value="$t('$1024')"></cell>
+      <cell-form-preview :list="list"></cell-form-preview>
+    </group>
   </div>
 </template>
 
+<i18n>
+  Total:
+  zh-CN: 合计
+  '$1024':
+  zh-CN: ￥1024
+  Apple:
+  zh-CN: 苹果
+  Banana:
+  zh-CN: 香蕉
+  Fish:
+  zh-CN: 鱼肉
+</i18n>
+
 <script>
-import { Tabbar, TabbarItem, Group, Cell } from 'vux'
+import { CellFormPreview, Group, Cell } from 'vux'
 
 export default {
   components: {
-    Tabbar,
-    TabbarItem,
+    CellFormPreview,
     Group,
     Cell
+  },
+  data () {
+    return {
+      list: [{
+        label: 'Apple',
+        value: '3.29'
+      }, {
+        label: 'Banana',
+        value: '1.04'
+      }, {
+        label: 'Fish',
+        value: '8.00'
+      }]
+    }
   }
 }
 </script>
