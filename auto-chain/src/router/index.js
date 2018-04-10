@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Dashboard from '@/components/Dashboard'
 import Signup from '@/components/Signup'
 import HelloWorld from '@/components/HelloWorld'
+import Test from '@/components/Test'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/hello',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path: '/ttt',
+      name: 'Test',
+      component: Test
     }
   ]
 })
