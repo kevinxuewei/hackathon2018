@@ -15,12 +15,35 @@ const store = new Vuex.Store({
 })
 Vue.use(vuexI18n.plugin, store)
 
-const translationsEn = {
-  'content': 'This is some {type} content'
-}
-Vue.i18n.add('en', translationsEn)
+store.registerModule('vux', {
+  state: {
+    demoScrollTop: 0,
+    isLoading: false,
+    direction: 'forward'
+  },
+  mutations: {
+    updateDemoPosition (state, payload) {
+      state.demoScrollTop = payload.top
+    },
+    updateLoadingStatus (state, payload) {
+      state.isLoading = payload.isLoading
+    },
+    updateDirection (state, payload) {
+      state.direction = payload.direction
+    }
+  },
+  actions: {
+    updateDemoPosition ({commit}, top) {
+      commit({type: 'updateDemoPosition', top: top})
+    }
+  }
+})
+// const translationsEn = {
+//   'content': 'This is some {type} content'
+// }
+// Vue.i18n.add('en', translationsEn)
 
-Vue.i18n.set('en')
+Vue.i18n.set('zh-CN')
 
 Vue.config.productionTip = false
 
