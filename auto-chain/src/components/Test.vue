@@ -70,10 +70,11 @@
 </i18n>
 
 <script>
-import { Divider, Card } from 'vux'
+import { XHeader, Divider, Card } from 'vux'
 
 export default {
   components: {
+    XHeader,
     Card,
     Divider
   }

@@ -12,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: '主页',
       component: Home
     },
     {

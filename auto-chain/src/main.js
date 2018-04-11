@@ -4,15 +4,18 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Web3 from 'web3'
+import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
 
+Vue.use(VueRouter)
 Vue.use(Vuex)
 const store = new Vuex.Store({
   modules: {
     i18n: vuexI18n.store
   }
 })
+
 Vue.use(vuexI18n.plugin, store)
 
 store.registerModule('vux', {
