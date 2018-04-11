@@ -38,10 +38,6 @@ store.registerModule('vux', {
     }
   }
 })
-// const translationsEn = {
-//   'content': 'This is some {type} content'
-// }
-// Vue.i18n.add('en', translationsEn)
 
 Vue.i18n.set('zh-CN')
 
@@ -60,6 +56,7 @@ window.addEventListener('load', function () {
   /* eslint-disable no-new */
   new Vue({
     el: '#app',
+    store,
     router,
     components: { App },
     template: '<App/>'
