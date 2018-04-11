@@ -1,19 +1,22 @@
 <template>
   <div>
     <div style="margin: 10px;overflow: hidden;" :key="i" v-for="i in [1,2,3,4,5]">
-      <v-card :imgSrc="'https://o5omsejde.qnssl.com/demo/test' + i + '.jpg'" style="width:80%;margin: auto;margin-bottom:5%;display:block;"></v-card>
+      <v-card :imgSrc="'https://o5omsejde.qnssl.com/demo/test' + i + '.jpg'" style="margin-bottom:5%;display:block;"></v-card>
     </div>
+    <v-tabbar></v-tabbar>
   </div>
 </template>
 
 <script>
 import { Masker } from 'vux'
 import VCard from './CarCard.vue'
+import VTabbar from './Tabbar.vue'
 
 export default {
   components: {
     VCard,
-    Masker
+    Masker,
+    VTabbar
   },
   data () {
     return {
