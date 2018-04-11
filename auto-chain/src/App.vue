@@ -5,8 +5,7 @@
     >
       <!-- main content -->
       <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
-
-        <x-header 
+        <x-header
         style="width: 100%; position: absolute; left: 0px; top: 0px; z-index: 100;"
         :left-options="leftOptions"
         :title="title"
@@ -25,12 +24,11 @@
           <span slot="icon"><i data-feather="user"></i></span>
             <span slot="label">我的</span>
           </tabbar-item>
-          <div style="position:fixed;bottom:15px;width:100%;text-align:center;">
+          <div style="position:fixed;bottom:85px;width:100%;height:0px;text-align:center;">
           <div class="btn-center">
             <i data-feather="plus" width="40" height="40" viewBox="0 0 40 40"></i>
           </div>
           </div>
-          
         </tabbar>
       </view-box>
     </drawer>
@@ -81,10 +79,10 @@ export default {
     },
     title () {
       return this.$route.name
-    },
+    }
   },
-  mounted(){
-    feather.replace();
+  mounted () {
+    feather.replace()
   }
 }
 </script>
