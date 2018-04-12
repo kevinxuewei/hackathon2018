@@ -9,7 +9,7 @@
       </group>
       <group>
         <box gap="20px 20px">
-          <x-button :gradients="['#1D62F0', '#19D5FD']">发起募集</x-button>
+          <x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="$router.push('/collect/rent')">发起募集</x-button>
         </box>
       </group>
     </div>

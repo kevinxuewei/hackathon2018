@@ -8,7 +8,7 @@
       <x-input title="支付代币："></x-input>
     </group>
     <box gap="20px 20px">
-      <x-button :gradients="['#FF5E3A', '#FF9500']">释放使用权</x-button>
+      <x-button :gradients="['#FF5E3A', '#FF9500']" @click.native="$router.push('/success')">释放使用权</x-button>
     </box>
   </div>
 </template>

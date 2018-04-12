@@ -7,7 +7,7 @@
       <x-input title="预计时长："></x-input>
     </group>
     <box gap="20px 20px">
-      <x-button :gradients="['#1D62F0', '#19D5FD']">提交</x-button>
+      <x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="$router.push('/success')">提交</x-button>
     </box>
   </div>
 </template>
@@ -23,9 +23,9 @@ export default {
     XInput,
     Group
   },
-  data() {
-    return {
-      list: [['别克凯越', '丰田凯美瑞', '摩拜']]
+  data(){
+    return{
+      list: [['雪佛兰', '别克', 'ofo']]
     }
   }
 }
