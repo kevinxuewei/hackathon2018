@@ -53,6 +53,17 @@ import {
 } from 'vux'
 import feather from 'feather-icons'
 export default {
+  data() {
+    return{
+      titleMap:{
+        'Test': '测试',
+        'Collect': '我要募集',
+        'DetailCollect': '募集详情',
+        'DetailMe': '车辆详情',
+        'MyCard': '我的车辆',
+      }
+    }
+  },
   directives: {
     TransferDom
   },
@@ -78,7 +89,7 @@ export default {
       }
     },
     title () {
-      return this.$route.name
+      return this.titleMap[this.$route.name]
     }
   },
   mounted () {

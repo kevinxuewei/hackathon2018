@@ -15,19 +15,19 @@
 </template>
 
 <script>
-  import {LoadMore, Badge, Group, Cell} from 'vux'
+import {LoadMore, Badge, Group, Cell} from 'vux'
 
-  export default {
-    components: {
-      Badge,
-      LoadMore,
-      Group,
-      Cell
-    },
-    data() {
-      return {}
-    }
+export default {
+  components: {
+    Badge,
+    LoadMore,
+    Group,
+    Cell
+  },
+  data() {
+    return {}
   }
+}
 </script>
 
 <style less>
