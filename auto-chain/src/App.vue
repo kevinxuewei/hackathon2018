@@ -12,7 +12,7 @@
         >
         </x-header>
         <router-view class="router-view"></router-view>
-        <tabbar style="position: fixed;border-top:0;">
+        <tabbar style="position: fixed;border-top:0">
           <tabbar-item link="/">
             <span slot="icon"><i data-feather="home"></i></span>
             <span slot="label">主页</span>
@@ -161,6 +161,7 @@ body {
 .router-view {
   width: 100%;
   top: 46px;
+  margin-bottom: 15px
 }
 .vux-pop-out-enter-active,
 .vux-pop-out-leave-active,

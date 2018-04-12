@@ -12,31 +12,31 @@
         </group>
       </div>
       <!--<div slot="content" class="card-padding" style="height: 40%">-->
-      <!--<p style="color:#999;font-size:18px;">车型</p>-->
-      <!--<p style="font-size:24px;line-height:1.2;">-->
-      <!--别克凯越2016 1.6L</p>-->
-      <!--<p style="color:#999;font-size:18px;;">叫啥来着</p>-->
-      <!--<p style="font-size:24px;line-height:1.2;">-->
-      <!--ETH 30 代币-->
-      <!--<countup :start-val="1" :end-val="15000" :duration="300"></countup>-->
-      <!--</p>-->
+        <!--<p style="color:#999;font-size:18px;">车型</p>-->
+        <!--<p style="font-size:24px;line-height:1.2;">-->
+          <!--别克凯越2016 1.6L</p>-->
+        <!--<p style="color:#999;font-size:18px;;">叫啥来着</p>-->
+        <!--<p style="font-size:24px;line-height:1.2;">-->
+          <!--ETH 30 代币-->
+          <!--<countup :start-val="1" :end-val="15000" :duration="300"></countup>-->
+        <!--</p>-->
       <!--</div>-->
     </div>
   </div>
 </template>
 
 <script>
-  import VCard from './CarCard.vue'
+import VCard from './CarCard.vue'
 
-  export default {
-    components: {
-      VCard
-    },
-    data () {
-      return {
-      }
+export default {
+  components: {
+    VCard
+  },
+  data () {
+    return {
     }
   }
+}
 </script>
 
 <style lang="less">
