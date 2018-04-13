@@ -5,27 +5,46 @@
         <p class="center"><img :src="require('../assets/images/header.jpeg')"></p>
       <!--</box>-->
       <group>
-        <x-input title="用户名："></x-input>
+        <x-input title="用户名：" v-model="username"></x-input>
       </group>
       <box gap="20px 50px">
-        <x-button :gradients="['#FF2719', '#FF61AD']" @click.native="$router.push('/success')">提交注册</x-button>
+        <x-button :gradients="['#FF2719', '#FF61AD']" @click.native="register">提交注册</x-button>
       </box>
     </div>
   </div>
 </template>
 
 <script>
-import {Box, Group, XInput, XButton} from 'vux'
+import {Box, Group, XInput, XButton, AlertModule} from 'vux'
 
 export default {
   components: {
     Box,
     XInput,
     XButton,
-    Group
+    Group,
+    AlertModule
   },
   data () {
-    return {}
+    return {
+      username: ''
+    }
+  },
+  methods: {
+    register: function () {
+      const self = this
+      if (this.username == ''){
+        AlertModule.show({
+          title: '错误',
+          content: '请输入用户名'
+        })
+      } else {
+        window.CarManager.signup(this.username).then(username => {
+          console.log(username)
+          self.$router.push('/success')
+        })
+      }
+    }
   }
 }
 </script>

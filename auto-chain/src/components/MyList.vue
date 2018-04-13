@@ -6,8 +6,8 @@
         <img :src="require('../assets/images/header.jpeg')"
              style="width:100%;display:block;"></flexbox-item>
       <flexbox-item :span="4/5">
-        <cell :title="'用户名：'">
-          <x-button v-if="isSignedUp" mini :gradients="['#FF5E3A', '#FF9500']"
+        <cell :title="'用户名：'" :value="username">
+          <x-button v-if="!isSignedUp" mini :gradients="['#FF5E3A', '#FF9500']"
                     @click.native="$router.push('/car/register')">注册
           </x-button>
         </cell>
@@ -51,7 +51,7 @@
     },
     data() {
       return {
-        isSignedUp: true,
+        isSignedUp: false,
         username: '',
         address: '',
       }
@@ -60,17 +60,16 @@
       console.log("mylist")
       this.address = window.address
       console.log(this.address)
+      const self = this
       window.CarManager.login().then(username => {
           if (username) {
+            self.isSignedUp = true
             console.log('log=' + username)
           }
         }).catch(err => {
           console.log(err)
           this.username = ''
         })
-      // window.CarManager.signup('aaa').then(username => {
-      //   console.log(username)
-      // })
     }
 
   }
