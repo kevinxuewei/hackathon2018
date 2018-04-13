@@ -1,62 +1,31 @@
 <template>
   <div>
-    <div style="margin: 10px;overflow: hidden;" :key="i" v-for="i in [1,2,3,4,5]">
-      <v-card :imgSrc="'https://o5omsejde.qnssl.com/demo/test' + i + '.jpg'" style="margin-bottom:5%;display:block;"></v-card>
+    <div style="overflow: hidden;" :key="i" v-for="i in [1,2,3,4,5]">
+      <card @click.native="$router.push('/collect/detailCollect')" style="cursor: pointer;margin-bottom:2%">
+        <img slot="header" :src="require('../assets/images/' + i + '.jpg')"
+             style="width:100%;display:block;">
+        <div slot="content" class="card-padding" style="height: 40%">
+            <cell :title="'车型'" :value="'别克凯越2016 1.6L'"></cell>
+            <cell :title="'总价/代币'"><span>ETH 30/</span><countup :start-val="1" :end-val="15000" :duration="2.5"></countup></cell>
+            <!--<cell :title="'数量'"></cell>-->
+        </div>
+      </card>
     </div>
-    <v-tabbar></v-tabbar>
   </div>
 </template>
 
 <script>
-import { Masker } from 'vux'
-import VCard from './CarCard.vue'
-import VTabbar from './Tabbar.vue'
+import { Card, Countup, AlertModule, Cell } from 'vux'
 
 export default {
   components: {
-    VCard,
-    Masker,
-    VTabbar
-  },
-  data () {
-    return {
-    }
+    Cell,
+    Card,
+    Countup,
+    AlertModule
   }
 }
 </script>
 
 <style lang="less">
-.m-img {
-  padding-bottom: 33%;
-  display: block;
-  position: relative;
-  max-width: 100%;
-  background-size: cover;
-  background-position: center center;
-  cursor: pointer;
-  border-radius: 2px;
-}
-
-.m-title {
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-  font-weight: 500;
-  font-size: 16px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
-  text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.m-time {
-  font-size: 12px;
-  padding-top: 4px;
-  border-top: 1px solid #f0f0f0;
-  display: inline-block;
-  margin-top: 5px;
-}
 </style>
