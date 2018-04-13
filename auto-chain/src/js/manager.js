@@ -36,7 +36,6 @@ const CarManager = {
     })
   },
 
-  
 
   signup: function (name) {
     let self = this
@@ -53,7 +52,45 @@ const CarManager = {
     })
   },
 
-  
+  raisingNewCar: function (carName, desc, price, amount, imgs, soldAmount) {
+    let self = this
+
+    return new Promise((resolve, reject) => {
+      self.instance.raisingNewCar(
+        carName,
+        desc,
+        price,
+        amount,
+        imgs,
+        soldAmount,
+        {from: window.address}
+      ).then(data => {
+        resolve(data)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+
+  },
+
+  buyNewCar: function (_cardId, amount) {
+    let self = this
+
+    return new Promise((resolve, reject) => {
+      self.instance.buyNewCar(
+        _cardId,
+        amount,
+        {from: window.address}
+      ).then(data => {
+        resolve(data)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+
+  },
+
+}
 }
 
 export default CarManager
