@@ -11,20 +11,31 @@
           :title="title"
         >
         </x-header>
-        <router-view class="router-view"></router-view>
+        <div style="position:fixed;top:50px; bottom:50px;overflow:scroll;">
+          <router-view class="router-view"></router-view>
+        </div>
         <tabbar style="position: fixed;border-top:0">
           <tabbar-item link="/">
             <span slot="icon"><i data-feather="home"></i></span>
             <span slot="label">主页</span>
           </tabbar-item>
           <tabbar-item>
-            <span slot="label"></span>
+            <span v-if="isIos" slot="icon" @click="$router.push(centerIconPath)">
+              <i v-if="centerIcon == 'plus'" data-feather="plus" width="40" height="40" viewBox="0 0 40 40"></i>
+              <i v-else-if="centerIcon == 'car'" data-feather="truck" width="40" height="40" viewBox="0 0 40 40"></i>
+              <i v-else-if="centerIcon == 'dashboard'" data-feather="tv" width="40" height="40" viewBox="0 0 40 40"></i>
+            </span>
+            <span v-if="isIos && centerIcon == 'plus'" slot="label">添加</span>
+            <span v-else-if="isIos && centerIcon == 'car'" slot="label">车辆</span>
+            <span v-else-if="isIos && centerIcon == 'dashboard'" slot="label">释放</span>
+            <span v-else slot="label"></span>
           </tabbar-item>
           <tabbar-item link="/car/myList">
             <span slot="icon"><i data-feather="user"></i></span>
             <span slot="label">我的</span>
           </tabbar-item>
-          <div style="cursor:pointer;position:fixed;bottom:85px;width:100%;height:0px;text-align:center;" @click="$router.push(centerIconPath)">
+          <div v-if="!isIos" style="cursor:pointer;position:fixed;bottom:85px;width:100%;height:0px;text-align:center;"
+               @click="$router.push(centerIconPath)">
             <div class="btn-center">
               <i v-if="centerIcon == 'plus'" data-feather="plus" width="40" height="40" viewBox="0 0 40 40"></i>
               <i v-else-if="centerIcon == 'car'" data-feather="truck" width="40" height="40" viewBox="0 0 40 40"></i>
@@ -60,7 +71,8 @@
     data() {
       return {
         centerIcon: "",
-        centerIconPath: "/collect/add"
+        centerIconPath: "/collect/add",
+        isIos: false
       }
     },
     directives: {
@@ -92,7 +104,10 @@
         return this.$route.name
       }
     },
-    created(){
+    created() {
+      if(navigator.userAgent.match(/(iPhone|iPod|ios|iOS|iPad)/i)){
+        this.isIos = true
+      }
       let index = this.$route.path.split('/')[1]
       if (index == 'success' || index == 'collect') {
         this.centerIcon = 'plus'
@@ -111,11 +126,11 @@
     watch: {
       $route(to, from) {
         let toIndex = to.path.split('/')[1]
-        if(toIndex == 'success'){
+        if (toIndex == 'success') {
           return
         }
         let fromIndex = from.path.split('/')[1]
-        if(fromIndex != toIndex){
+        if (fromIndex != toIndex) {
           location.reload()
         }
       }
@@ -210,7 +225,7 @@
   .router-view {
     width: 100%;
     top: 46px;
-    margin-bottom: 15px
+    margin-bottom: 15px;
   }
 
   .vux-pop-out-enter-active,

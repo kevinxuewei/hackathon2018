@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="position:fixed;width:100%;display:block;">
     <group :title="'费用单位为 代币/小时'">
       <popup-picker title="车辆选择" :data="list" value-text-align="left"></popup-picker>
       <x-input title="基础费用："></x-input>

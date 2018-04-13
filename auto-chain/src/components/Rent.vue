@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="position:fixed;width:100%;display:block;">
     <group :title="'费用单位为 代币/小时'">
       <x-input title="基础费用："></x-input>
       <x-input title="忙时费用："></x-input>

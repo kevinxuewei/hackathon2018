@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div style="margin: 10px;overflow: hidden;" :key="i" v-for="i in [1,2,3,4,5]">
-      <card @click.native="$router.push('/car/detailMe')" style="cursor: pointer">
+    <div style="overflow: hidden;" :key="i" v-for="i in [1,2,3,4,5]">
+      <card @click.native="$router.push('/car/detailMe')" style="margin-bottom: 8px;cursor: pointer">
         <img slot="header" :src="'https://o5omsejde.qnssl.com/demo/test' + i + '.jpg'"
              style="width:100%;height:60%;display:block;">
         <div slot="content" class="card-padding">

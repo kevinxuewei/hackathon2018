@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="margin: 10px;overflow: hidden;" :key="i" v-for="i in [1,2,3,4,5]">
+    <div style="overflow: hidden;" :key="i" v-for="i in [1,2,3,4,5]">
       <card @click.native="$router.push('/collect/detailCollect')" style="cursor: pointer;margin-bottom:7%">
         <img slot="header" :src="'https://o5omsejde.qnssl.com/demo/test' + i + '.jpg'"
              style="width:100%;height:60%;display:block;">

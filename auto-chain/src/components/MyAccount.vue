@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="position:fixed;width:100%;display:block;">
     <load-more tip="我的资金流水" :show-loading="false" background-color="#fbf9fe"></load-more>
     <div style="padding:0 10px;">
       <x-table>

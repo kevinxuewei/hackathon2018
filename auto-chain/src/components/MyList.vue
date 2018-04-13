@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="position:fixed;width:100%;display:block;">
     <load-more tip="个人中心" :show-loading="false" background-color="#fbf9fe"></load-more>
     <group>
       <cell is-link @click.native="$router.push('/car/myCard')">
