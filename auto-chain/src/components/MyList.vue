@@ -64,6 +64,7 @@
       window.CarManager.login().then(username => {
           if (username) {
             self.isSignedUp = true
+            self.username = username
             console.log('log=' + username)
           }
         }).catch(err => {
