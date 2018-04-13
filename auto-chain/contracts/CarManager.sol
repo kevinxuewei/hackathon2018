@@ -7,7 +7,7 @@ contract CarManager  {
                     FREE, //闲置
                     BID_USE,//竞价使用
                     USING, //正在使用
-                    SOLD_OUT_ING //售出
+                    SOLD_OUT //售出
                   }
 
   enum TransactionType {
@@ -34,26 +34,28 @@ contract CarManager  {
 
   struct Stock{
     User user;
-    uint8 percent;
-    uint256 price;
+    uint256 amount;
   }
 
   struct Car{
     uint carId;
     bytes32 name;
     Location location;
-    uint256 price;
+    uint256 amount;
+    uint256 price;//eth
     bytes32 desc;
+    uint256 rentAmount;//每小时价格
     CarStatus carStatus;
     bytes32[] imgs;
     Stock[] stocks;
     RentInfo[] rentInfos;
+    User owner;
   }
 
   struct RentInfo{
     uint256 startTime;
     uint256 endTime;
-    uint256 price;
+    uint256 amount;
     User user;
   }
 
@@ -61,7 +63,7 @@ contract CarManager  {
   struct Transaction{
     User user;
     TransactionType transactionType;
-    uint256 price;
+    uint256 amount;
     uint256 time;
   }
 
@@ -85,28 +87,24 @@ contract CarManager  {
 
 
 
-  function buyAutoCoin(uint256 autoCoinSum) payable
+  function buyAutoCoin(uint256 buyAutoCoinSum,uint _cardId) payable
   returns (bool){
-    uint needEth = transferAutoCoin2Eth(autoCoinSum);
+    Car car = carMap[_cardId];
+    uint needEth = transferAutoCoin2Eth(buyAutoCoinSum,car.amount,car.price);
     require(msg.sender.balance >= needEth);
     if(msg.sender.balance >= needEth){
       if(sendEth(needEth,organizer)){
-          users[msg.sender].property = users[msg.sender].property + autoCoinSum;
+          users[msg.sender].property = users[msg.sender].property + buyAutoCoinSum;
           return true;
       }
     }
     return true;
   }
 
-  function transferEth2AutoCoin(uint256 ethSum)
-  returns (uint256){
-    return ethSum;
-  }
 
-
-  function transferAutoCoin2Eth(uint256 autoCoinSum)
+  function transferAutoCoin2Eth(uint256 buyAutoCoinSum,uint256 carAmount,uint256 carPrice)
   returns (uint256){
-    return autoCoinSum;
+    return carPrice  * buyAutoCoinSum / carAmount;
   }
 
 
@@ -131,45 +129,76 @@ contract CarManager  {
     Location memory location = Location(longitude,latitude,locationName);
     car.location = location;
     require(user.add == rentInfos[rentInfos.length -1].user.add);
+
+    uint256 useTime = curTime - rentInfos[rentInfos.length -1 ].startTime;
+    uint256 useAmount= useTime/1000/60/60 * car.rentAmount;
+
+    Stock[] stocks = car.stocks;
+    for(uint256 i = 0 ; i < stocks.length; ++i){
+      uint256 incomeAmount = useAmount * stocks[i].amount / car.amount;
+      if(stocks[i].user.add == msg.sender){
+        users[msg.sender].property -= (useAmount - incomeAmount);
+      }else{
+        users[stocks[i].user.add].property += incomeAmount;
+      }
+      Transaction memory incomeTransaction = Transaction(user,TransactionType.INCOME,incomeAmount,curTime);
+      users[stocks[i].user.add].transactions.push(transaction);
+    }
     Car[] usingCars = user.usingCars;
     Car[] newUsingCars;
-    for(uint i = 0 ; i < usingCars.length; ++i){
+    for(i = 0 ; i < usingCars.length; ++i){
       if(car.carId != usingCars[i].carId){
         newUsingCars.push(usingCars[i]);
       }
     }
     user.usingCars = newUsingCars;
     car.carStatus = CarStatus.FREE;
-    rentInfos[rentInfos.length].endTime = curTime;
-    //TODO 计算价格转账
+    rentInfos[rentInfos.length-1].endTime = curTime;
+    Transaction memory transaction = Transaction(user,TransactionType.RENT,useAmount,curTime);
+    user.transactions.push(transaction);
     return true;
   }
 
-
-  function rentNewCar(uint256 _carId,uint256 price) internal
+  function checkUserHasTheCar(uint256 _carId) internal
   onlyExistingUser
   onlyExistingCar(_carId)
   returns (bool){
+    Car car = carMap[_carId];
+    Stock[] stocks = car.stocks;
+    for(uint256 i = 0 ; i < stocks.length; ++i){
+      if(stocks[i].user.add == msg.sender){
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+
+  function rentNewCar(uint256 _carId) internal
+  onlyExistingUser
+  onlyExistingCar(_carId)
+  returns (bool){
+    require(checkUserHasTheCar(_carId));
     uint curTime = block.timestamp;
     Car car = carMap[_carId];
     require(car.carStatus == CarStatus.FREE);
     car.carStatus = CarStatus.USING;
     User user = users[msg.sender];
-    RentInfo memory rentInfo = RentInfo(curTime,0,price,user);
+    RentInfo memory rentInfo = RentInfo(curTime,0,0,user);
     car.rentInfos.push(rentInfo);
     user.usingCars.push(car);
-    Transaction memory transaction = Transaction(user,TransactionType.RENT,price,curTime);
-    user.transactions.push(transaction);
     return true;
   }
 
 
-  function raisingNewCar(bytes32 carName,bytes32 desc,uint price,bytes32[] imgs) internal
+  function raisingNewCar(bytes32 carName,bytes32 desc,uint256 price,uint256 amount,bytes32[] imgs,uint soldAmount) internal
   onlyExistingUser
   returns (bool){
     ++carId;
     Location memory defaultLocation = Location(0,0,"");
     Car newCar;
+    User user = users[msg.sender];
     newCar.carId = carId;
     newCar.name = carName;
     newCar.location = defaultLocation;
@@ -177,6 +206,12 @@ contract CarManager  {
     newCar.desc = desc;
     newCar.price = price;
     newCar.imgs = imgs;
+    uint256 selfAmount = amount - soldAmount;
+    Stock memory stock = Stock(user,selfAmount);
+    Stock[] stocks;
+    stocks.push(stock);
+    newCar.stocks = stocks;
+    newCar.owner = user;
     carMap[carId] = newCar;
     allCars.push(newCar);
     return true;
@@ -184,36 +219,37 @@ contract CarManager  {
 
 
 
-  function buyNewCar(uint256 _carId,uint256 price,uint8 percent) internal
+  function buyNewCar(uint256 _carId,uint256 amount) internal
   onlyExistingUser
   onlyExistingCar(_carId)
   returns (bool){
-    require(users[organizer].property >= price);
-    if(users[organizer].property >= price){
-      uint curTime = block.timestamp;
-      require(!carIsFinishRaise(_carId));
-      Car car = carMap[_carId];
-      Stock[] stocks = car.stocks;
-      uint256 raisedPrice = 0;
-      uint8 raisedPercent = 0;
-      for(uint i = 0 ; i < stocks.length ; ++i){
-        raisedPrice += stocks[i].price;
-        raisedPercent += stocks[i].percent;
-      }
-      require(raisedPrice + price <= car.price);
-      require(raisedPercent + percent <= 100);
-      users[organizer].property = users[organizer].property - price;
-      User user = users[msg.sender];
-      Stock memory newStock = Stock(user,percent,price);
-      car.stocks.push(newStock);
-      user.havingCars.push(car);
-      Transaction memory transaction = Transaction(user,TransactionType.BUY,price,curTime);
-      user.transactions.push(transaction);
-      if(carIsFinishRaise(_carId)){
-        car.carStatus = CarStatus.FREE;
-      }
+    uint curTime = block.timestamp;
+    require(!carIsFinishRaise(_carId));
+    Car car = carMap[_carId];
+    uint256 needEth = transferAutoCoin2Eth(amount,car.amount,car.price);
+    require(msg.sender.balance >= needEth);
+    Stock[] stocks = car.stocks;
+    uint256 raisedAmount = 0;
+    for(uint i = 0 ; i < stocks.length ; ++i){
+      raisedAmount += stocks[i].amount;
     }
-
+    require(raisedAmount + amount <= car.amount);
+    if(msg.sender.balance >= needEth){
+      if(buyAutoCoin(amount,_carId)){
+        User user = users[msg.sender];
+        Stock memory newStock = Stock(user,amount);
+        car.stocks.push(newStock);
+        user.havingCars.push(car);
+        Transaction memory buyCarTransaction = Transaction(user,TransactionType.BUY,amount,curTime);
+        user.transactions.push(buyCarTransaction);
+        if(carIsFinishRaise(_carId)){
+          car.carStatus = CarStatus.FREE;
+        }
+      }
+      car.owner.add.transfer(needEth);
+      Transaction memory inComeTransaction = Transaction(user,TransactionType.INCOME,amount,curTime);
+      car.owner.transactions.push(inComeTransaction);
+    }
   }
 
 
@@ -223,13 +259,11 @@ contract CarManager  {
   returns (bool){
     Car car = carMap[_carId];
     Stock[] stocks = car.stocks;
-    uint256 raisedPrice = 0;
-    uint8 raisedPercent = 0;
+    uint256 raisedAmount = 0;
     for(uint i = 0 ; i < stocks.length ; ++i){
-      raisedPrice += stocks[i].price;
-      raisedPercent += stocks[i].percent;
+      raisedAmount += stocks[i].amount;
     }
-    return raisedPrice == car.price && raisedPercent == 100;
+    return raisedAmount == car.amount ;
 
   }
 
@@ -285,6 +319,13 @@ contract CarManager  {
       }
     }
     return res;
+  }
+
+
+  function getUserTransactionList() internal
+  onlyExistingUser
+  returns (Transaction[]){
+    return users[msg.sender].transactions;
   }
 
 
