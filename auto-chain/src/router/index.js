@@ -12,6 +12,7 @@ import Success from '@/components/Success'
 import Use from '@/components/Use'
 import Signup from '@/components/Signup'
 import Back from '@/components/Back'
+import Register from '@/components/Register'
 import Test from '@/components/Test'
 
 Vue.use(Router)
@@ -81,6 +82,11 @@ export default new Router({
       path: '/back/',
       name: '我要回购',
       component: Back
+    },
+    {
+      path: '/car/register',
+      name: '注册',
+      component: Register
     },
     {
       path: '/test',

@@ -8,7 +8,7 @@
       <flexbox-item :span="4/5">
         <cell :title="'用户名：'">
           <x-button v-if="isSignedUp" mini :gradients="['#FF5E3A', '#FF9500']"
-                    @click.native="$router.push('/signUp')">注册
+                    @click.native="$router.push('/car/register')">注册
           </x-button>
         </cell>
         <cell :title="'我的地址：'">
@@ -72,7 +72,7 @@
       //   console.log(username)
       // })
     }
-    
+
   }
 </script>
 
