@@ -27,8 +27,6 @@ contract CarManager  {
   }
 
   struct Location{
-    ufixed longitude;//经度
-    ufixed latitude;//纬度
     bytes32 name;
   }
 
@@ -117,7 +115,7 @@ contract CarManager  {
   }
 
 
-  function returnCar(uint256 _carId,ufixed longitude,ufixed latitude,bytes32 locationName) internal
+  function returnCar(uint256 _carId,bytes32 locationName) internal
   onlyExistingUser
   onlyExistingCar(_carId)
   returns (bool){
@@ -126,7 +124,7 @@ contract CarManager  {
     require(car.carStatus == CarStatus.USING);
     User user = users[msg.sender];
     RentInfo[] rentInfos = car.rentInfos;
-    Location memory location = Location(longitude,latitude,locationName);
+    Location memory location = Location(locationName);
     car.location = location;
     require(user.add == rentInfos[rentInfos.length -1].user.add);
 
@@ -192,11 +190,11 @@ contract CarManager  {
   }
 
 
-  function raisingNewCar(bytes32 carName,bytes32 desc,uint256 price,uint256 amount,bytes32 img,uint256 soldAmount,uint256 rentAmount) internal
+  function raisingNewCar(bytes32 carName,bytes32 desc,uint256 price,uint256 amount,bytes32 img,uint256 soldAmount,uint256 rentAmount) public
   onlyExistingUser
   returns (bool){
-    ++carId;
-    Location memory defaultLocation = Location(0,0,"");
+    carId = carId + 1;
+    Location memory defaultLocation = Location("");
     Car newCar;
     User user = users[msg.sender];
     newCar.carId = carId;
@@ -208,7 +206,9 @@ contract CarManager  {
     newCar.img = img;
     newCar.rentAmount = rentAmount;
     uint256 selfAmount = amount - soldAmount;
-    Stock memory stock = Stock(user,selfAmount);
+    Stock  stock;
+    stock.user = user;
+    stock.amount = selfAmount;
     Stock[] stocks;
     stocks.push(stock);
     newCar.stocks = stocks;
