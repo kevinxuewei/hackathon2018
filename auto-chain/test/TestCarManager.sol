@@ -8,6 +8,15 @@ contract TestCarManager {
     uint sum = carManager.test(1,2);
     Assert.equal(sum,3,"error");
   }
+
+
+  function testSignUp(){
+    bytes32 name = 'testName';
+    bytes32 res = carManager.signup(name);
+    Assert.equal(name,res,"error");
+    bytes32 res2 = carManager.login();
+    Assert.equal(name,res2,"error");
+  }
 }
 
 

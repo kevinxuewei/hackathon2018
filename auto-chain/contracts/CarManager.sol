@@ -46,7 +46,7 @@ contract CarManager  {
     bytes32 desc;
     uint256 rentAmount;//每小时价格
     CarStatus carStatus;
-    bytes32[] imgs;
+    bytes32 img;
     Stock[] stocks;
     RentInfo[] rentInfos;
     User owner;
@@ -192,7 +192,7 @@ contract CarManager  {
   }
 
 
-  function raisingNewCar(bytes32 carName,bytes32 desc,uint256 price,uint256 amount,bytes32[] imgs,uint soldAmount) internal
+  function raisingNewCar(bytes32 carName,bytes32 desc,uint256 price,uint256 amount,bytes32 img,uint256 soldAmount,uint256 rentAmount) internal
   onlyExistingUser
   returns (bool){
     ++carId;
@@ -205,7 +205,8 @@ contract CarManager  {
     newCar.carStatus = CarStatus.RAISING;
     newCar.desc = desc;
     newCar.price = price;
-    newCar.imgs = imgs;
+    newCar.img = img;
+    newCar.rentAmount = rentAmount;
     uint256 selfAmount = amount - soldAmount;
     Stock memory stock = Stock(user,selfAmount);
     Stock[] stocks;
