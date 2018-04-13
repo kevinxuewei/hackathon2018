@@ -66,7 +66,7 @@ contract CarManager  {
   }
 
   address public organizer;
-  function Conference() { // Constructor
+  function CarManager() { // Constructor
     organizer = msg.sender;
   }
 
