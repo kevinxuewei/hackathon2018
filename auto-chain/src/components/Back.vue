@@ -14,43 +14,30 @@
 </template>
 
 <script>
-import {Box, XButton, XInput, Group, PopupPicker} from 'vux'
+import {Box, XButton, XInput, Group, PopupPicker, AlertModule} from 'vux'
 
 export default {
   components: {
     PopupPicker,
     Box,
     XButton,
+    AlertModule,
     XInput,
     Group
   },
   data () {
     return {
-      list: [['别克凯越', '丰田凯美瑞', '摩拜']]
+      list: [['别克凯越', '丰田凯美瑞', '摩拜']],
+      car: ""
     }
   },
   methods: {
     submit() {
       const self = this
-      if (this.carName == '') {
+      if (this.car == '') {
         AlertModule.show({
           title: '错误',
           content: '请输入车辆名'
-        })
-      } else if (this.amount == '') {
-        AlertModule.show({
-          title: '错误',
-          content: '请输入总金额'
-        })
-      } else if (this.soldAmount == '') {
-        AlertModule.show({
-          title: '错误',
-          content: '请输入发行代币'
-        })
-      } else if (this.price == '') {
-        AlertModule.show({
-          title: '错误',
-          content: '请输入费用'
         })
       } else {
         window.CarManager.raisingNewCar(this.carName, this.desc, this.price, this.amount, this.imgs, this.soldAmount).then(username => {

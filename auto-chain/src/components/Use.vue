@@ -1,19 +1,16 @@
 <template>
   <div style="position:fixed;width:100%;display:block;">
     <group :title="'费用单位为 代币/小时'">
-      <popup-picker title="车辆选择" :data="list" value-text-align="left"></popup-picker>
-      <x-input title="基础费用："></x-input>
-      <x-input title="忙时费用："></x-input>
-      <x-input title="预计时长："></x-input>
+      <popup-picker title="车辆选择" :data="list" v-model="car" value-text-align="left"></popup-picker>
     </group>
     <box gap="20px 20px">
-      <x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="$router.push('/success')">提交</x-button>
+      <x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="submit">提交</x-button>
     </box>
   </div>
 </template>
 
 <script>
-import {Box, XButton, XInput, Group, PopupPicker} from 'vux'
+import {Box, XButton, XInput, Group, AlertModule, PopupPicker} from 'vux'
 
 export default {
   components: {
@@ -21,11 +18,31 @@ export default {
     Box,
     XButton,
     XInput,
+    AlertModule,
     Group
   },
   data () {
     return{
-      list: [['雪佛兰', '别克', 'ofo']]
+      list: [['雪佛兰', '别克', 'ofo']],
+      car: ''
+    }
+  },
+  mounted() {
+
+  },
+  methods: {
+    submit() {
+      const self = this
+      if (this.car == '') {
+        AlertModule.show({
+          title: '错误',
+          content: '请选择车辆'
+        })
+      } else {
+        // window.CarManager.buyNewCar(this.car, this.amount, this.soldAmount).then(res => {
+          self.$router.push('/success')
+        // })
+      }
     }
   }
 }
