@@ -1,7 +1,7 @@
 <template>
   <div>
     <img slot="header" :src="'https://o5omsejde.qnssl.com/demo/test1.jpg'"
-         style="width:100%;height:60%;display:block;">
+         style="width:100%;display:block;">
     <div slot="content" class="card-padding">
       <group :title="'费用单位为 代币/小时'">
         <x-input title="车辆名称："></x-input>

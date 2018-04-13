@@ -1,7 +1,7 @@
 <template>
   <div>
     <img slot="header" :src="'https://o5omsejde.qnssl.com/demo/test1.jpg'"
-         style="width:100%;height:60%;display:block;">
+         style="width:100%;display:block;">
     <div slot="content" class="card-padding">
       <group>
         <cell :title="'车辆名称'" :value="'别克凯越2016 1.6L'"></cell>

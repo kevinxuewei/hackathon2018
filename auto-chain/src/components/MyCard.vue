@@ -3,7 +3,7 @@
     <div style="overflow: hidden;" :key="i" v-for="i in [1,2,3,4,5]">
       <card @click.native="$router.push('/car/detailMe')" style="margin-bottom: 8px;cursor: pointer">
         <img slot="header" :src="'https://o5omsejde.qnssl.com/demo/test' + i + '.jpg'"
-             style="width:100%;height:60%;display:block;">
+             style="width:100%;display:block;">
         <div slot="content" class="card-padding">
           <cell :title="'车型'" :value="'别克凯越2016 1.6L'"></cell>
           <cell :title="'状态'" :value="'使用中'"></cell>
