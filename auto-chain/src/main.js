@@ -59,8 +59,8 @@ window.addEventListener('load', function () {
   }
   CarManager.init()
       .then(() => {
-        console.log(self)
-        console.log(CarManager)        
+        // console.log(self)
+        // console.log(CarManager)        
         window.CarManager = CarManager
         window.address = window.web3.eth.accounts[0];
         /* eslint-disable no-new */

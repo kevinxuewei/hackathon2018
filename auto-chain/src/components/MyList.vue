@@ -60,8 +60,19 @@
       console.log("mylist")
       this.address = window.address
       console.log(this.address)
-      
+      window.CarManager.login().then(username => {
+          if (username) {
+            console.log('log=' + username)
+          }
+        }).catch(err => {
+          console.log(err)
+          this.username = ''
+        })
+      // window.CarManager.signup('aaa').then(username => {
+      //   console.log(username)
+      // })
     }
+    
   }
 </script>
 

@@ -124,26 +124,6 @@ export default {
   mounted() {
     feather.replace()
   },
-  beforeCreate: function() {
-    const self = this
-    CarManager.init()
-      .then(() => {
-        console.log(self)
-        console.log(CarManager)        
-        window.CarManager = CarManager
-        CarManager.login(window.web3.eth.accounts[0]).then(username => {
-          console.log('log=' + window.web3.eth.accounts[0])
-          console.log('log=' + username)
-          if (username) {
-            console.log('log=' + window.web3.eth.accounts[0])
-            console.log('log=' + username)
-          }
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
   watch: {
     $route (to, from) {
       let toIndex = to.path.split('/')[1]
