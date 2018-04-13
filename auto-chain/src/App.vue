@@ -22,8 +22,8 @@
           <tabbar-item>
             <span v-if="isIos" slot="icon" @click="$router.push(centerIconPath)">
               <i v-if="centerIcon == 'plus'" data-feather="plus"></i>
-              <i v-else-if="centerIcon == 'car'" data-feather="menu"></i>
-              <i v-else-if="centerIcon == 'back'" data-feather="log-out"></i>
+              <i v-else-if="centerIcon == 'car'" data-feather="send"></i>
+              <i v-else-if="centerIcon == 'back'" data-feather="unlock"></i>
             </span>
             <span v-if="isIos && centerIcon == 'plus'" slot="label">添加</span>
             <span v-else-if="isIos && centerIcon == 'car'" slot="label">车辆</span>
@@ -38,8 +38,8 @@
                @click="$router.push(centerIconPath)">
             <div class="btn-center">
               <i v-if="centerIcon == 'plus'" data-feather="plus" width="40" height="40" viewBox="0 0 40 40"></i>
-              <i v-else-if="centerIcon == 'car'" data-feather="menu" width="40" height="40" viewBox="0 0 40 40"></i>
-              <i v-else-if="centerIcon == 'back'" data-feather="log-out" width="40" height="40" viewBox="0 0 40 40"></i>
+              <i v-else-if="centerIcon == 'car'" data-feather="send" width="40" height="40" viewBox="0 0 40 40"></i>
+              <i v-else-if="centerIcon == 'back'" data-feather="unlock" width="40" height="40" viewBox="0 0 40 40"></i>
             </div>
           </div>
         </tabbar>
