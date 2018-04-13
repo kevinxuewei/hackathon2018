@@ -92,6 +92,35 @@ const CarManager = {
 
   },
 
+  getUserDetail: function () {
+    let self = this
+
+    return new Promise((resolve, reject) => {
+      self.instance.getUserDetail.call(
+        {from: window.address}
+      ).then(data => {
+        resolve(data)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  getRaisingCardList: function () {
+    let self = this
+
+    return new Promise((resolve, reject) => {
+      self.instance.getRaisingCardList.call(
+        {from: window.address}
+      ).then(data => {
+        resolve(data)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+
+  }
+
 }
 
 
