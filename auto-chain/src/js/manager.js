@@ -52,7 +52,7 @@ const CarManager = {
     })
   },
 
-  raisingNewCar: function (carName, desc, price, amount, imgs, soldAmount) {
+  raisingNewCar: function (carName, desc, price, amount, imgs, soldAmount, rentAmount) {
     let self = this
 
     return new Promise((resolve, reject) => {
@@ -63,6 +63,7 @@ const CarManager = {
         amount,
         imgs,
         soldAmount,
+        rentAmount,
         {from: window.address}
       ).then(data => {
         resolve(data)
