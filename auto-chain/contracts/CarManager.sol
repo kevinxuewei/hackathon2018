@@ -1,6 +1,7 @@
 pragma solidity ^0.4.18;
 
-contract CarManager{
+
+contract CarManager  {
 
   enum CarStatus { RAISING,//募集
                     FREE, //闲置
@@ -12,13 +13,14 @@ contract CarManager{
   enum TransactionType {
     BUY,
     RENT,
-    SOLD_OUT
+    SOLD_OUT,
+    INCOME
   }
 
   struct User{
     address add;
     bytes32 name;
-    int256 property;
+    uint256 property;
     Car[] havingCars;
     Car[] usingCars;
     Transaction[] transactions;
@@ -63,6 +65,11 @@ contract CarManager{
     uint256 time;
   }
 
+  address public organizer;
+  function Conference() { // Constructor
+    organizer = msg.sender;
+  }
+
 
   //用户信息
   mapping (address => User)  users;
@@ -76,6 +83,40 @@ contract CarManager{
   //
   mapping (uint256 => Car) carMap;
 
+
+
+  function buyAutoCoin(uint256 autoCoinSum) payable
+  returns (bool){
+    uint needEth = transferAutoCoin2Eth(autoCoinSum);
+    require(msg.sender.balance >= needEth);
+    if(msg.sender.balance >= needEth){
+      if(sendEth(needEth,organizer)){
+          users[msg.sender].property = users[msg.sender].property + autoCoinSum;
+          return true;
+      }
+    }
+    return true;
+  }
+
+  function transferEth2AutoCoin(uint256 ethSum)
+  returns (uint256){
+    return ethSum;
+  }
+
+
+  function transferAutoCoin2Eth(uint256 autoCoinSum)
+  returns (uint256){
+    return autoCoinSum;
+  }
+
+
+  function sendEth(uint256 amount,address receiveAddress) payable public
+  onlyExistingUser
+  returns (bool){
+    require(msg.value >= amount);
+    receiveAddress.transfer(amount);
+    return true;
+  }
 
 
   function returnCar(uint256 _carId,ufixed longitude,ufixed latitude,bytes32 locationName) internal
@@ -147,27 +188,30 @@ contract CarManager{
   onlyExistingUser
   onlyExistingCar(_carId)
   returns (bool){
-    uint curTime = block.timestamp;
-    require(!carIsFinishRaise(_carId));
-    Car car = carMap[_carId];
-    Stock[] stocks = car.stocks;
-    uint256 raisedPrice = 0;
-    uint8 raisedPercent = 0;
-    for(uint i = 0 ; i < stocks.length ; ++i){
-      raisedPrice += stocks[i].price;
-      raisedPercent += stocks[i].percent;
-    }
-    require(raisedPrice + price <= car.price);
-    require(raisedPercent + percent <= 100);
-    //转账操作 TODO
-    User user = users[msg.sender];
-    Stock memory newStock = Stock(user,percent,price);
-    car.stocks.push(newStock);
-    user.havingCars.push(car);
-    Transaction memory transaction = Transaction(user,TransactionType.BUY,price,curTime);
-    user.transactions.push(transaction);
-    if(carIsFinishRaise(_carId)){
-      car.carStatus = CarStatus.FREE;
+    require(users[organizer].property >= price);
+    if(users[organizer].property >= price){
+      uint curTime = block.timestamp;
+      require(!carIsFinishRaise(_carId));
+      Car car = carMap[_carId];
+      Stock[] stocks = car.stocks;
+      uint256 raisedPrice = 0;
+      uint8 raisedPercent = 0;
+      for(uint i = 0 ; i < stocks.length ; ++i){
+        raisedPrice += stocks[i].price;
+        raisedPercent += stocks[i].percent;
+      }
+      require(raisedPrice + price <= car.price);
+      require(raisedPercent + percent <= 100);
+      users[organizer].property = users[organizer].property - price;
+      User user = users[msg.sender];
+      Stock memory newStock = Stock(user,percent,price);
+      car.stocks.push(newStock);
+      user.havingCars.push(car);
+      Transaction memory transaction = Transaction(user,TransactionType.BUY,price,curTime);
+      user.transactions.push(transaction);
+      if(carIsFinishRaise(_carId)){
+        car.carStatus = CarStatus.FREE;
+      }
     }
 
   }
@@ -296,6 +340,12 @@ contract CarManager{
       return (users[msg.sender].name);
     }
   }
+
+  function test(uint256 a,uint256 b) public
+  returns (uint256){
+    return a+b;
+  }
+
 
 
 }
