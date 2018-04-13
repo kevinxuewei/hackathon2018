@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img slot="header" :src="require('../assets/images/' + (Math.floor(Math.random()*19) + 1) + '.jpg')"
+    <img slot="header" :src="require('../assets/images/' + this.randomNumber + '.jpg')"
          style="width:100%;display:block;">
     <div slot="content" class="card-padding">
       <group :title="'费用单位为 代币/小时'">
@@ -34,7 +34,8 @@
         soldAmount: "",
         desc: "",
         imgs: "",
-        price: ""
+        price: "",
+        randomNumber: Math.floor(Math.random()*19) + 1
       }
     },
     methods: {
