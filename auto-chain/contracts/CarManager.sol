@@ -309,12 +309,25 @@ contract CarManager  {
   }
 
 
-  function getCarListByStatus(CarStatus carStatus) internal
-  onlyExistingUser
+
+  function getFreeCardList() internal
   returns (Car[]){
     Car[] res;
     for(uint i = 0; i < allCars.length; i++) {
-      if(allCars[i].carStatus == carStatus){
+      if(allCars[i].carStatus == CarStatus.FREE){
+        res.push(allCars[i]);
+      }
+    }
+    return res;
+  }
+
+
+
+  function getRaisingCardList() internal
+  returns (Car[]){
+    Car[] res;
+    for(uint i = 0; i < allCars.length; i++) {
+      if(allCars[i].carStatus == CarStatus.RAISING){
         res.push(allCars[i]);
       }
     }
