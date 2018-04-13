@@ -139,7 +139,10 @@ contract CarManager  {
         users[stocks[i].user.add].property += incomeAmount;
       }
       Transaction incomeTransaction;
-//      = Transaction(user,TransactionType.INCOME,incomeAmount,curTime);
+      incomeTransaction.user = user;
+      incomeTransaction.transactionType = TransactionType.INCOME;
+      incomeTransaction.amount = incomeAmount;
+      incomeTransaction.time = curTime;
       users[stocks[i].user.add].transactions.push(transaction);
     }
     Car[] usingCars = user.usingCars;
@@ -153,7 +156,10 @@ contract CarManager  {
     car.carStatus = CarStatus.FREE;
     rentInfos[rentInfos.length-1].endTime = curTime;
     Transaction transaction;
-//    = Transaction(user,TransactionType.RENT,useAmount,curTime);
+    transaction.user = user;
+    transaction.transactionType = TransactionType.RENT;
+    transaction.amount = useAmount;
+    transaction.time = curTime;
     user.transactions.push(transaction);
     return true;
   }
@@ -185,7 +191,10 @@ contract CarManager  {
     car.carStatus = CarStatus.USING;
     User user = users[msg.sender];
     RentInfo rentInfo;
-//    = RentInfo(curTime,0,0,user);
+    rentInfo.startTime = curTime;
+    rentInfo.endTime = 0;
+    rentInfo.amount = 0;
+    rentInfo.user = user;
     car.rentInfos.push(rentInfo);
     user.usingCars.push(car);
     return true;
@@ -240,11 +249,15 @@ contract CarManager  {
       if(buyAutoCoin(amount,_carId)){
         User user = users[msg.sender];
         Stock newStock;
-//        = Stock(user,amount);
+        newStock.user  = user;
+        newStock.amount = amount;
         car.stocks.push(newStock);
         user.havingCars.push(car);
         Transaction buyCarTransaction;
-//        = Transaction(user,TransactionType.BUY,amount,curTime);
+        buyCarTransaction.user = user;
+        buyCarTransaction.transactionType = TransactionType.BUY;
+        buyCarTransaction.amount = amount;
+        buyCarTransaction.time = curTime;
         user.transactions.push(buyCarTransaction);
         if(carIsFinishRaise(_carId)){
           car.carStatus = CarStatus.FREE;
@@ -252,7 +265,10 @@ contract CarManager  {
       }
       car.owner.add.transfer(needEth);
       Transaction inComeTransaction;
-//      = Transaction(user,TransactionType.INCOME,amount,curTime);
+      inComeTransaction.user = car.owner;
+      inComeTransaction.transactionType = TransactionType.INCOME;
+      inComeTransaction.amount = amount;
+      inComeTransaction.time = curTime;
       car.owner.transactions.push(inComeTransaction);
     }
   }
