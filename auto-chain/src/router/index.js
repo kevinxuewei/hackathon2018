@@ -21,10 +21,10 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/collect/home'
+      redirect: '/home'
     },
     {
-      path: '/collect/home',
+      path: '/home',
       name: '主页',
       component: Home
     },
@@ -34,37 +34,37 @@ export default new Router({
       component: Signup
     },
     {
-      path: '/collect/detailCollect',
+      path: '/detailCollect',
       name: '募集详情',
       component: DetailCollect
     },
     {
-      path: '/car/detailMe',
+      path: '/detailMe',
       name: '车辆详情',
       component: DetailMe
     },
     {
-      path: '/collect/add',
+      path: '/collect',
       name: '我要募集',
       component: Collect
     },
     {
-      path: '/car/myAccount',
+      path: '/myAccount',
       name: '资金流水',
       component: MyAccount
     },
     {
-      path: '/car/myCard',
+      path: '/myCard',
       name: '我的车辆',
       component: MyCard
     },
     {
-      path: '/car/myList',
+      path: '/myList',
       name: '个人中心',
       component: MyList
     },
     {
-      path: '/collect/rent',
+      path: '/rent',
       name: '发起募集',
       component: Rent
     },
@@ -74,17 +74,17 @@ export default new Router({
       component: Success
     },
     {
-      path: '/car/use',
+      path: '/use',
       name: '我要用车',
       component: Use
     },
     {
-      path: '/back/',
+      path: '/back',
       name: '我要回购',
       component: Back
     },
     {
-      path: '/car/register',
+      path: '/register',
       name: '注册',
       component: Register
     },

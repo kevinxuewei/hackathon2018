@@ -13,7 +13,7 @@
       </group>
       <group>
         <box gap="20px 20px">
-        <x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="$router.push('/car/use')">我要用车</x-button>
+        <x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="$router.push('/use')">我要用车</x-button>
         <x-button :gradients="['#FF5E3A', '#FF9500']" @click.native="$router.push('/back')">我要回购</x-button>
         </box>
       </group>

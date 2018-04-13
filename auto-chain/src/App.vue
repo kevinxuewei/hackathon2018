@@ -30,7 +30,7 @@
             <span v-else-if="isIos && centerIcon == 'back'" slot="label">释放</span>
             <span v-else slot="label"></span>
           </tabbar-item>
-          <tabbar-item link="/car/myList">
+          <tabbar-item link="/myList">
             <span slot="icon"><i data-feather="user"></i></span>
             <span slot="label">我的</span>
           </tabbar-item>
@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       centerIcon: '',
-      centerIconPath: '/collect/add',
+      centerIconPath: '/collect',
       isIos: false
     }
   },
@@ -112,10 +112,10 @@ export default {
     let index = this.$route.path.split('/')[1]
     if (index == 'success' || index == 'collect') {
       this.centerIcon = 'plus'
-      this.centerIconPath = '/collect/add'
+      this.centerIconPath = '/collect'
     } else if (index == 'car') {
       this.centerIcon = 'car'
-      this.centerIconPath = '/car/myCard'
+      this.centerIconPath = '/myCard'
     } else {
       this.centerIcon = 'back'
       this.centerIconPath = '/'
@@ -123,18 +123,6 @@ export default {
   },
   mounted() {
     feather.replace()
-  },
-  watch: {
-    $route (to, from) {
-      let toIndex = to.path.split('/')[1]
-      if (toIndex === 'success') {
-        return
-      }
-      let fromIndex = from.path.split('/')[1]
-      if (fromIndex !== toIndex) {
-        location.reload()
-      }
-    }
   }
 }
 </script>

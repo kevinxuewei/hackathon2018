@@ -90,7 +90,7 @@ const CarManager = {
 
   },
 
-}
+
 }
 
 export default CarManager
