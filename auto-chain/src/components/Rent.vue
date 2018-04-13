@@ -20,7 +20,7 @@ export default {
     XInput,
     Group
   },
-  data() {
+  data () {
     return {
       list1: [{
         label: '总金额',

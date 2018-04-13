@@ -23,7 +23,7 @@ export default {
     XInput,
     Group
   },
-  data(){
+  data () {
     return{
       list: [['雪佛兰', '别克', 'ofo']]
     }

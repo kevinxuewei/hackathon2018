@@ -28,7 +28,7 @@ export default {
     Cell,
     Countup
   },
-  data() {
+  data () {
     return {}
   }
 }

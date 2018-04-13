@@ -51,8 +51,16 @@
     },
     data() {
       return {
-        isSignedUp: true
+        isSignedUp: true,
+        username: '',
+        address: '',
       }
+    },
+    mounted() {
+      console.log("mylist")
+      this.address = window.address
+      console.log(this.address)
+      
     }
   }
 </script>

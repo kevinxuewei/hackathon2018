@@ -40,7 +40,7 @@ export default {
     XTable,
     LoadMore
   },
-  data() {
+  data () {
     return {}
   }
 }

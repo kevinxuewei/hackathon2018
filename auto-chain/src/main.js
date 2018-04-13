@@ -7,6 +7,8 @@ import Web3 from 'web3'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
+import CarManager from '@/js/manager'
+
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
@@ -55,13 +57,33 @@ window.addEventListener('load', function () {
     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
     window.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'))
   }
+  CarManager.init()
+      .then(() => {
+        console.log(self)
+        console.log(CarManager)        
+        window.CarManager = CarManager
+        window.address = window.web3.eth.accounts[0];
+        /* eslint-disable no-new */
+        new Vue({
+          el: '#app',
+          store,
+          router,
+          components: { App },
+          template: '<App/>'
+        })
 
-  /* eslint-disable no-new */
-  new Vue({
-    el: '#app',
-    store,
-    router,
-    components: { App },
-    template: '<App/>'
-  })
+        // CarManager.login(window.web3.eth.accounts[0]).then(username => {
+        //   console.log('log=' + window.web3.eth.accounts[0])
+        //   console.log('log=' + username)
+        //   if (username) {
+        //     console.log('log=' + window.web3.eth.accounts[0])
+        //     console.log('log=' + username)
+        //   }
+        // })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+  
 })

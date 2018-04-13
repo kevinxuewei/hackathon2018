@@ -24,7 +24,7 @@ export default {
     XInput,
     Group
   },
-  data() {
+  data () {
     return {
       list: [['别克凯越', '丰田凯美瑞', '摩拜']]
     }
