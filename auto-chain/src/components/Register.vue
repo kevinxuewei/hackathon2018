@@ -39,8 +39,8 @@ export default {
           content: '请输入用户名'
         })
       } else {
-        window.CarManager.signup(this.username).then(username => {
-          console.log(username)
+        window.CarManager.signup(this.username).then(tx => {
+          console.log(tx)
           self.$router.push('/success')
         })
       }

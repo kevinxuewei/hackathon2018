@@ -42,27 +42,28 @@ const CarManager = {
 
     return new Promise((resolve, reject) => {
       self.instance.signup(
-        name,
+        window.web3.fromUtf8(name),
         {from: window.address}
-      ).then(data => {
-        resolve(window.web3.toUtf8(data))
+      ).then(tx => {
+        resolve(tx)
       }).catch(err => {
         reject(err)
       })
     })
   },
 
-  raisingNewCar: function (carName, desc, price, amount, imgs, soldAmount) {
+  raisingNewCar: function (carName, desc, price, amount, imgs, soldAmount, rentAmount) {
     let self = this
 
     return new Promise((resolve, reject) => {
       self.instance.raisingNewCar(
-        carName,
-        desc,
+        window.web3.fromUtf8(carName),
+        window.web3.fromUtf8(desc),
         price,
         amount,
         imgs,
         soldAmount,
+        rentAmount,
         {from: window.address}
       ).then(data => {
         resolve(data)
@@ -90,7 +91,7 @@ const CarManager = {
 
   },
 
-
 }
+
 
 export default CarManager
