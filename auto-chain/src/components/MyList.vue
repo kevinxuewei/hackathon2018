@@ -11,7 +11,7 @@
                     @click.native="$router.push('/car/register')">注册
           </x-button>
         </cell>
-        <cell :title="'我的地址：'">
+        <cell :title="'我的地址：'":value="address">
         </cell>
       </flexbox-item>
     </flexbox>
