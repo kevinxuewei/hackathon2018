@@ -113,7 +113,7 @@ contract CarManager  {
   function sendEth(uint256 amount,address receiveAddress) payable public
   onlyExistingUser
   returns (bool){
-    require(msg.value >= amount);
+    require(msg.balance >= amount);
     receiveAddress.transfer(amount);
     return true;
   }
