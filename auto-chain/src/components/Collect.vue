@@ -5,8 +5,8 @@
     <div slot="content" class="card-padding">
       <group :title="'费用单位为 代币/小时'">
         <x-input title="车辆名称：" :max="10" v-model="carName"></x-input>
-        <x-input title="总金额(WEI)：" v-model="price"></x-input>
         <x-input title="总代币：" v-model="amount"></x-input>
+        <x-input title="总金额(WEI)：" v-model="price"></x-input>
         <x-input title="募集代币：" v-model="soldAmount"></x-input>
         <x-input title="用车费用：" v-model="rentAmount"></x-input>
       </group>
@@ -33,7 +33,7 @@
         carName: "",
         amount: "",
         soldAmount: "",
-        rentAmount: "",
+        rentAmount: "100",
         desc: "",
         imgs: "",
         price: "",
@@ -77,6 +77,14 @@
           window.CarManager.raisingNewCar(this.carName, this.desc, this.price, this.amount, this.imgs, this.soldAmount, this.rentAmount).then(username => {
             self.$router.push('/success')
           })
+        }
+      }
+    },
+    watch:{
+      amount:{
+        handler:function(val,oldval){
+          this.price = val
+          this.soldAmount = Math.floor(val*75/100)
         }
       }
     }

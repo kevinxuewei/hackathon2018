@@ -23,12 +23,14 @@ export default {
   },
   data () {
     return{
-      list: [['雪佛兰', '别克', 'ofo']],
+      list: [],
       car: ''
     }
   },
   mounted() {
-
+    window.CarManager.getRaisingCardList().then(res => {
+      this.list.push(res)
+    })
   },
   methods: {
     submit() {

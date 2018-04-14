@@ -37,16 +37,16 @@
       return {
         list1: [{
           label: '总金额',
-          value: '1500,000 WEI'
+          value: '150,000 WEI'
         }, {
-          label: '发型代币',
-          value: '1500,000'
+          label: '发行代币',
+          value: '150,000'
         }, {
           label: '车主位置',
           value: '清河'
         }, {
           label: '募集进度',
-          value: '1500,000 / 1500,000'
+          value: '150,000 / 150,000'
         }],
         list2: [{
           label: '0x2b323ef8...',
