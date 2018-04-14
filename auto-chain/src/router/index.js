@@ -14,6 +14,7 @@ import Signup from '@/components/Signup'
 import Back from '@/components/Back'
 import Register from '@/components/Register'
 import Test from '@/components/Test'
+import Unopen from '@/components/Unopen'
 
 Vue.use(Router)
 
@@ -72,6 +73,11 @@ export default new Router({
       path: '/success',
       name: '完成',
       component: Success
+    },
+    {
+      path: '/unopen',
+      name: '暂不可用',
+      component: Unopen
     },
     {
       path: '/use',

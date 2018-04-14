@@ -40,26 +40,23 @@
       return {
         list1: [{
           label: '总金额',
-          value: '30ETH'
+          value: '150,000 WEI'
         }, {
-          label: '发型代币',
+          label: '发行代币',
           value: '150,000'
         }, {
           label: '车主位置',
           value: '清河'
         }, {
-          label: '母鸡进度',
-          value: '100,000 / 150,000'
+          label: '募集进度',
+          value: '87,000 / 150,000'
         }],
         list2: [{
-          label: '车主一',
-          value: '35%'
+          label: '0x2b323ef8...',
+          value: '35.23%'
         }, {
-          label: '车主二',
-          value: '25%'
-        }, {
-          label: '车主三',
-          value: '10%'
+          label: '0x9f3a829e...',
+          value: '25.43%'
         }],
         amount: 0,
         cardId: 0
@@ -75,7 +72,7 @@
           })
         } else {
           // window.CarManager.buyNewCar(this.cardId, this.amount).then(res => {
-            self.$router.push('/success')
+            self.$router.push('/unopen')
           // })
         }
       }

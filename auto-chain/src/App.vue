@@ -123,7 +123,7 @@
       //   }
       //   feather.replace()
       // })
-
+      this.centerIcon = 'plus'
       feather.replace()
     }
   }
