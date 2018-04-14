@@ -201,7 +201,7 @@ contract CarManager  {
   }
 
 
-  function raisingNewCar(bytes32 carName,bytes32 desc,uint256 price,uint256 amount,bytes32 img,uint256 soldAmount,uint256 rentAmount) public
+  function raisingNewCar(bytes32 carName,bytes32 desc,uint256 price,uint256 amount,bytes32 img,uint256 soldAmount,uint256 rentAmount) public payable
   onlyExistingUser
   returns (bool){
     carId = carId + 1;

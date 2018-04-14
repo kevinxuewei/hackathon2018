@@ -58,7 +58,7 @@
     },
     mounted() {
       console.log("mylist")
-      this.address = window.address
+      this.address = window.address.substring(0,20)+'...'
       console.log(this.address)
       const self = this
       window.CarManager.login().then(username => {

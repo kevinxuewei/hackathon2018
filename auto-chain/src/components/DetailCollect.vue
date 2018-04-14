@@ -11,45 +11,53 @@
         <cell :title="'募集详情'" :value="''"></cell>
         <cell-form-preview :list="list2"></cell-form-preview>
       </group>
+      <group>
+        <x-input :title="'购买代币'" :value="buyAmount"></x-input>        
+      </group>
+      <group>
+        <box gap="20px 20px">
+        <x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="$router.push('/use')">我要参与购买</x-button>
+        </box>
+      </group>
     </div>
   </div>
 </template>
 
 <script>
-  import { CellFormPreview, Group, Cell } from 'vux'
+  import { CellFormPreview, Group, Cell, XButton, XInput } from 'vux'
 
   export default {
     props: ['imgSrc'],
     components: {
       CellFormPreview,
       Group,
-      Cell
+      Cell,
+      XButton,
+      XInput
     },
     data () {
       return {
         list1: [{
           label: '总金额',
-          value: '30ETH'
+          value: '1500,000 WEI'
         }, {
-          label: '发型代币',
-          value: '150,000'
+          label: '发行代币',
+          value: '1500,000'
         }, {
           label: '车主位置',
           value: '清河'
         }, {
-          label: '母鸡进度',
-          value: '100,000 / 150,000'
+          label: '募集进度',
+          value: '1028,231 / 1500,000'
         }],
         list2: [{
-          label: '车主一',
-          value: '35%'
+          label: '0x2b323ef8...',
+          value: '35.23%'
         }, {
-          label: '车主二',
-          value: '25%'
-        }, {
-          label: '车主三',
-          value: '10%'
-        }]
+          label: '0x9f3a829e...',
+          value: '25.43%'
+        }],
+        buyAmount: 0
       }
     }
   }

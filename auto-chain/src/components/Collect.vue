@@ -8,7 +8,7 @@
         <x-input title="总金额(WEI)：" v-model="price"></x-input>
         <x-input title="总代币：" v-model="amount"></x-input>
         <x-input title="募集代币：" v-model="soldAmount"></x-input>
-        <x-input title="用车费用(小时)：" v-model="rentAmount"></x-input>
+        <x-input title="用车费用：" v-model="rentAmount"></x-input>
       </group>
       <box gap="20px 20px">
         <x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="submit">发起募集</x-button>
