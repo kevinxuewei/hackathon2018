@@ -12,9 +12,11 @@
         <cell-form-preview :list="list2"></cell-form-preview>
       </group>
       <group>
-        <x-number fillable :title="'购买代币量：'" v-model="amount" button-style="round" :min="0"></x-number>
-        <box gap="20px 50px">
-          <x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="submit">我要参与</x-button>
+        <x-input :title="'购买代币'" :value="buyAmount"></x-input>        
+      </group>
+      <group>
+        <box gap="20px 20px">
+        <x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="$router.push('/use')">我要参与购买</x-button>
         </box>
       </group>
     </div>
@@ -22,62 +24,40 @@
 </template>
 
 <script>
-  import { CellFormPreview, Group, Cell, AlertModule, XNumber, Box } from 'vux'
-  import XButton from "vux/src/components/x-button/index";
+  import { CellFormPreview, Group, Cell, XButton, XInput } from 'vux'
 
   export default {
     props: ['imgSrc'],
     components: {
-      XButton,
       CellFormPreview,
       Group,
       Cell,
-      XNumber,
-      AlertModule,
-      Box
+      XButton,
+      XInput
     },
     data () {
       return {
         list1: [{
           label: '总金额',
-          value: '30ETH'
+          value: '1500,000 WEI'
         }, {
-          label: '发型代币',
-          value: '150,000'
+          label: '发行代币',
+          value: '1500,000'
         }, {
           label: '车主位置',
           value: '清河'
         }, {
           label: '募集进度',
-          value: '100,000 / 150,000'
+          value: '1028,231 / 1500,000'
         }],
         list2: [{
-          label: '车主一',
-          value: '35%'
+          label: '0x2b323ef8...',
+          value: '35.23%'
         }, {
-          label: '车主二',
-          value: '25%'
-        }, {
-          label: '车主三',
-          value: '10%'
+          label: '0x9f3a829e...',
+          value: '25.43%'
         }],
-        amount: 0,
-        cardId: 0
-      }
-    },
-    methods: {
-      submit() {
-        const self = this
-        if (this.amount == 0) {
-          AlertModule.show({
-            title: '错误',
-            content: '代币量不能为0'
-          })
-        } else {
-          // window.CarManager.buyNewCar(this.cardId, this.amount).then(res => {
-            self.$router.push('/success')
-          // })
-        }
+        buyAmount: 0
       }
     }
   }

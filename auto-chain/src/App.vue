@@ -120,6 +120,7 @@ export default {
       this.centerIcon = 'back'
       this.centerIconPath = '/'
     }
+    // this.centerIcon = 'plus'
   },
   mounted() {
     feather.replace()

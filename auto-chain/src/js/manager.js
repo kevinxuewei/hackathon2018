@@ -56,6 +56,7 @@ const CarManager = {
     let self = this
 
     return new Promise((resolve, reject) => {
+      console.log(self.instance)
       self.instance.raisingNewCar(
         window.web3.fromUtf8(carName),
         window.web3.fromUtf8(desc),

@@ -6,7 +6,7 @@
              style="width:100%;display:block;">
         <div slot="content" class="card-padding" style="height: 40%">
             <cell :title="'车型'" :value="'别克凯越2016 1.6L'"></cell>
-            <cell :title="'总价/代币'"><span>ETH 30/</span><countup :start-val="1" :end-val="15000" :duration="2.5"></countup></cell>
+            <cell :title="'总价/代币'"><span>WEI 150000/</span><countup :start-val="1" :end-val="150000" :duration="0.5"></countup></cell>
             <!--<cell :title="'数量'"></cell>-->
         </div>
       </card>

@@ -8,11 +8,11 @@
           <cell :title="'车型'" :value="'别克凯越2016 1.6L'"></cell>
           <cell :title="'状态'" :value="'使用中'"></cell>
           <cell :title="'数量'">
-            <countup :start-val="1" :end-val="152310" :duration="2.5"></countup>
+            <countup :start-val="1" :end-val="82310" :duration="2.5"></countup>
             <span>/</span>
-            <countup :start-val="1" :end-val="15000" :duration="2"></countup>
+            <countup :start-val="1" :end-val="150000" :duration="2"></countup>
           </cell>
-          <cell :title="'占比'" :value="'14.56%'"></cell>
+          <cell :title="'占比'" :value="'54.56%'"></cell>
         </div>
       </card>
     </div>
