@@ -12,6 +12,8 @@ const CarManager = {
 
   carsales: null,
 
+  carId: 1,
+
   init: function () {
     let self = this
 
@@ -83,12 +85,12 @@ const CarManager = {
     })
   },
 
-  raisingNewCar: function (carId, price) {
+  raisingNewCar: function (carName, desc, price, amount, imgs, soldAmount) {
     let self = this
 
     return new Promise((resolve, reject) => {
       self.carsales.saleCar(
-        carId,
+        self.carId++,
         price,
         {from: window.address}
       ).then(data => {
