@@ -1,7 +1,7 @@
 
-var users = artifacts.require("Users");
+var carMgr = artifacts.require("CarManager");
 var carSaleManager = artifacts.require("CarSaleManager");
 module.exports = function(deployer) {
-  deployer.deploy(users);
+  deployer.deploy(carMgr);
   deployer.deploy(carSaleManager);
 };
