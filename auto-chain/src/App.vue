@@ -21,9 +21,7 @@
           </tabbar-item>
           <tabbar-item>
             <span v-if="isIos" slot="icon" @click="$router.push(centerIconPath)">
-              <i v-if="centerIcon == 'plus'" data-feather="plus"></i>
-              <i v-else-if="centerIcon == 'car'" data-feather="send"></i>
-              <i v-else-if="centerIcon == 'back'" data-feather="unlock"></i>
+              <v-icon :type="centerIcon"></v-icon>
             </span>
             <span v-if="isIos && centerIcon == 'plus'" slot="label">添加</span>
             <span v-else-if="isIos && centerIcon == 'car'" slot="label">车辆</span>
@@ -37,10 +35,7 @@
           <div v-if="!isIos" style="cursor:pointer;position:fixed;bottom:85px;width:100%;height:0px;text-align:center;"
                @click="$router.push(centerIconPath)">
             <div class="btn-center">
-              <i v-if="centerIcon == 'plus'" data-feather="plus" width="40" height="40" viewBox="0 0 40 40"></i>
-              <i v-else-if="centerIcon == 'car'" data-feather="send" width="40" height="40" viewBox="0 0 40 40"></i>
-              <i v-else-if="centerIcon == 'back'" data-feather="unlock" width="40" height="40" viewBox="0 0 40 40"></i>
-            </div>
+              <v-icon :type="centerIcon"></v-icon></div>
           </div>
         </tabbar>
       </view-box>
@@ -65,12 +60,13 @@
     TransferDom,
     XButton
   } from 'vux'
+  import VIcon from './Icon.vue'
   import feather from 'feather-icons'
 
   export default {
     data() {
       return {
-        centerIcon: '',
+        centerIcon: 'plus',
         centerIconPath: '/collect',
         isIos: false
       }
@@ -79,6 +75,7 @@
       TransferDom
     },
     components: {
+      VIcon,
       Radio,
       Group,
       Cell,
@@ -108,24 +105,28 @@
       if (navigator.userAgent.match(/(iPhone|iPod|ios|iOS|iPad)/i)) {
         this.isIos = true;
       }
+      const self = this
+      window.CarManager.getUsingCarsLength().then(res => {
+        if (parseInt(res) > 0) {
+          self.centerIcon = 'back'
+          self.centerIconPath = '/back'
+        } else {
+          window.CarManager.getHavingCarsLength().then(res => {
+            if (parseInt(res) > 0) {
+              self.centerIcon = 'use'
+              self.centerIconPath = '/use'
+            } else {
+              self.centerIcon = 'plus'
+              self.centerIconPath = '/collect'
+            }
+          })
+        }
+      })
     },
     mounted() {
-      // window.CarManager.getUserDetail().then(res => {
-      //   if (res.usingCars.length > 0) {
-      //     this.centerIcon = 'back'
-      //     this.centerIconPath = '/back'
-      //   } else if (res.havingCars.length > 0) {
-      //     this.centerIcon = 'car'
-      //     this.centerIconPath = '/use'
-      //   } else {
-      //     this.centerIcon = 'plus'
-      //     this.centerIconPath = '/collect'
-      //   }
-      //   feather.replace()
-      // })
-
       feather.replace()
-    }
+    },
+    methods: {}
   }
 </script>
 <style lang='less'>

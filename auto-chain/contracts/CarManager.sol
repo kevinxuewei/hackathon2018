@@ -324,7 +324,19 @@ contract CarManager  {
     return (cars[cur].desc,cars[cur].rentAmount,cars[cur].carStatus,cars[cur].img);
   }
 
+  function getUsingCarsLength() public
+    onlyExistingUser
+    returns(uint){
+      User user = users[msg.sender];
+      return user.usingCars.length;
+    }
 
+  function getHavingCarsLength() public
+    onlyExistingUser
+    returns(uint){
+      User user = users[msg.sender];
+      return user.havingCars.length;
+    }
   function getAllCarsUserUsing() internal
   onlyExistingUser
   returns (Car[]){

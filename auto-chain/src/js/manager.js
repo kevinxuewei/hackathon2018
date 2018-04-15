@@ -75,6 +75,32 @@ const CarManager = {
 
   },
 
+  getUsingCarsLength: function () {
+    let self = this
+    return new Promise((resolve, reject) => {
+      self.instance.getUsingCarsLength.call(
+        {from: window.address}
+      ).then(data => {
+        resolve(data)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  getHavingCarsLength: function () {
+    let self = this
+    return new Promise((resolve, reject) => {
+      self.instance.getHavingCarsLength.call(
+        {from: window.address}
+      ).then(data => {
+        resolve(data)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
   buyNewCar: function (_cardId, amount) {
     let self = this
 
