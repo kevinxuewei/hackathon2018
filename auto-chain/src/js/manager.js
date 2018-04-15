@@ -1,5 +1,6 @@
 import contract from 'truffle-contract'
 import CarsContract from '@contracts/CarManager.json'
+import CarSaleManager from '@contracts/CarSaleManager.json'
 
 const CarManager = {
 
@@ -7,7 +8,24 @@ const CarManager = {
 
   instance: null,
 
+  contract_carsales: null,
+
+  carsales: null,
+
+  carId: 1,
+
   init: function () {
+    let self = this
+
+    return new Promise(function (resolve, reject) {
+      self.initUsers()
+        .then(self.initCarSales())
+        .then(resolve())
+        .catch(err => {reject(err)})
+    })
+  },
+
+  initUsers: function () {
     let self = this
 
     return new Promise(function (resolve, reject) {
@@ -15,6 +33,21 @@ const CarManager = {
       self.contract.setProvider(window.web3.currentProvider)
       self.contract.deployed().then(instance => {
         self.instance = instance
+        resolve()
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  initCarSales: function () {
+    let self = this
+
+    return new Promise(function (resolve, reject) {
+      self.contract_carsales = contract(CarSaleManager)
+      self.contract_carsales.setProvider(window.web3.currentProvider)
+      self.contract_carsales.deployed().then(instance => {
+        self.carsales = instance
         resolve()
       }).catch(err => {
         reject(err)
@@ -52,19 +85,13 @@ const CarManager = {
     })
   },
 
-  raisingNewCar: function (carName, desc, price, amount, imgs, soldAmount, rentAmount) {
+  raisingNewCar: function (carName, desc, price, amount, imgs, soldAmount) {
     let self = this
 
     return new Promise((resolve, reject) => {
-      console.log(self.instance)
-      self.instance.raisingNewCar(
-        window.web3.fromUtf8(carName),
-        window.web3.fromUtf8(desc),
+      self.carsales.saleCar(
+        self.carId++,
         price,
-        amount,
-        imgs,
-        soldAmount,
-        rentAmount,
         {from: window.address}
       ).then(data => {
         resolve(data)
@@ -102,49 +129,49 @@ const CarManager = {
   },
 
   buyNewCar: function (_cardId, amount) {
-    let self = this
-
-    return new Promise((resolve, reject) => {
-      self.instance.buyNewCar(
-        _cardId,
-        amount,
-        {from: window.address}
-      ).then(data => {
-        resolve(data)
-      }).catch(err => {
-        reject(err)
-      })
-    })
+    // let self = this
+    //
+    // return new Promise((resolve, reject) => {
+    //   self.instance.buyNewCar(
+    //     _cardId,
+    //     amount,
+    //     {from: window.address}
+    //   ).then(data => {
+    //     resolve(data)
+    //   }).catch(err => {
+    //     reject(err)
+    //   })
+    // })
 
   },
 
   getUserDetail: function () {
-    let self = this
-
-    return new Promise((resolve, reject) => {
-      self.instance.getUserDetail.call(
-        {from: window.address}
-      ).then(data => {
-        resolve(data)
-      }).catch(err => {
-        reject(err)
-      })
-    })
+    // let self = this
+    //
+    // return new Promise((resolve, reject) => {
+    //   self.instance.getUserDetail.call(
+    //     {from: window.address}
+    //   ).then(data => {
+    //     resolve(data)
+    //   }).catch(err => {
+    //     reject(err)
+    //   })
+    // })
   },
 
   getRaisingCardList: function () {
-    let self = this
-
-    return new Promise((resolve, reject) => {
-      self.instance.getRaisingCardList.call(
-        {from: window.address}
-      ).then(data => {
-        resolve(data)
-      }).catch(err => {
-        reject(err)
-      })
-    })
-
+    // let self = this
+    //
+    // return new Promise((resolve, reject) => {
+    //   self.instance.getRaisingCardList.call(
+    //     {from: window.address}
+    //   ).then(data => {
+    //     resolve(data)
+    //   }).catch(err => {
+    //     reject(err)
+    //   })
+    // })
+    //
   }
 
 }
