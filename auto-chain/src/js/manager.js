@@ -1,6 +1,7 @@
 import contract from 'truffle-contract'
 import CarsContract from '@contracts/CarManager.json'
 import CarSaleManager from '@contracts/CarSaleManager.json'
+import {web3} from 'wallet'
 
 const CarManager = {
 
@@ -31,12 +32,24 @@ const CarManager = {
     return new Promise(function (resolve, reject) {
       self.contract = contract(CarsContract)
       self.contract.setProvider(window.web3.currentProvider)
-      self.contract.deployed().then(instance => {
-        self.instance = instance
+      // self.contract.deployed().then(instance => {
+      //   self.instance = instance
+      //   console.log("hehe!")
+      //   console.log(self.instance)
+      //   resolve()
+      // }).catch(err => {
+      //   reject(err)
+      // })
+
+      let abi = require('@contracts/CarManager.json').abi;
+      try{
+        self.instance = web3.loadContract(abi, process.env.CARMANAGER_ADDR)
+        console.log("init miao!")
+        console.log(self.instance)
         resolve()
-      }).catch(err => {
+      } catch(err){
         reject(err)
-      })
+      }
     })
   },
 
@@ -46,12 +59,19 @@ const CarManager = {
     return new Promise(function (resolve, reject) {
       self.contract_carsales = contract(CarSaleManager)
       self.contract_carsales.setProvider(window.web3.currentProvider)
-      self.contract_carsales.deployed().then(instance => {
-        self.carsales = instance
+      // self.contract_carsales.deployed().then(instance => {
+      //   self.carsales = instance
+      //   resolve()
+      // }).catch(err => {
+      //   reject(err)
+      // })
+      let abi = require('@contracts/CarSaleManager.json').abi;
+      try{
+        self.carsales = web3.loadContract(abi, process.env.CARMANAGER_ADDR)
         resolve()
-      }).catch(err => {
+      } catch(err){
         reject(err)
-      })
+      }
     })
   },
 
@@ -74,6 +94,8 @@ const CarManager = {
     let self = this
 
     return new Promise((resolve, reject) => {
+      console.log("cow!")
+      console.log(self.instance)
       self.instance.signup(
         window.web3.fromUtf8(name),
         {from: window.address}

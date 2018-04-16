@@ -106,22 +106,22 @@
         this.isIos = true;
       }
       const self = this
-      window.CarManager.getUsingCarsLength().then(res => {
-        if (parseInt(res) > 0) {
-          self.centerIcon = 'back'
-          self.centerIconPath = '/back'
-        } else {
-          window.CarManager.getHavingCarsLength().then(res => {
-            if (parseInt(res) > 0) {
-              self.centerIcon = 'use'
-              self.centerIconPath = '/use'
-            } else {
-              self.centerIcon = 'plus'
-              self.centerIconPath = '/collect'
-            }
-          })
-        }
-      })
+//      window.CarManager.getUsingCarsLength().then(res => {
+//        if (parseInt(res) > 0) {
+//          self.centerIcon = 'back'
+//          self.centerIconPath = '/back'
+//        } else {
+//          window.CarManager.getHavingCarsLength().then(res => {
+//            if (parseInt(res) > 0) {
+//              self.centerIcon = 'use'
+//              self.centerIconPath = '/use'
+//            } else {
+//              self.centerIcon = 'plus'
+//              self.centerIconPath = '/collect'
+//            }
+//          })
+//        }
+//      })
     },
     mounted() {
       feather.replace()

@@ -1,5 +1,6 @@
 import contract from 'truffle-contract'
 import UsersContract from '@contracts/Users.json'
+import {web3} from 'wallet'
 
 const Users = {
 
@@ -14,12 +15,22 @@ const Users = {
       self.contract = contract(UsersContract)
       self.contract.setProvider(window.web3.currentProvider)
 
-      self.contract.deployed().then(instance => {
-        self.instance = instance
+      // self.contract.deployed().then(instance => {
+      //   self.instance = instance
+      //   resolve()
+      // }).catch(err => {
+      //   reject(err)
+      // })
+
+      let abi = require('@contracts/CarManager.json').abi;
+      try{
+        self.instance = web3.loadContract(abi, process.env.CARMANAGER_ADDR)
+        console.log("init miao!")
+        console.log(self.instance)
         resolve()
-      }).catch(err => {
+      } catch(err){
         reject(err)
-      })
+      }
     })
   },
 
