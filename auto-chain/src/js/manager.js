@@ -44,6 +44,7 @@ const CarManager = {
       let abi = require('@contracts/CarManager.json').abi;
       try{
         self.instance = web3.loadContract(abi, process.env.CARMANAGER_ADDR)
+        console.log(process.env.CARMANAGER_ADDR)
         console.log("init miao!")
         console.log(self.instance)
         resolve()

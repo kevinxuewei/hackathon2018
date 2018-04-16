@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Web3 from 'web3'
+// import Web3 from 'web3'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
@@ -48,42 +48,66 @@ Vue.i18n.set('zh-CN')
 
 Vue.config.productionTip = false
 
-window.addEventListener('load', function () {
-  if (typeof web3 !== 'undefined') {
-    console.log('Web3 injected browser: OK.')
-    window.web3 = new Web3(window.web3.currentProvider)
-  } else {
-    console.log('Web3 injected browser: Fail. You should consider trying MetaMask.')
-    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-    window.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'))
-  }
-  CarManager.init()
-      .then(() => {
-        // console.log(self)
-        // console.log(CarManager)        
-        window.CarManager = CarManager
-        window.address = window.web3.eth.accounts[0];
-        /* eslint-disable no-new */
-        new Vue({
-          el: '#app',
-          store,
-          router,
-          components: { App },
-          template: '<App/>'
-        })
-
-        // CarManager.login(window.web3.eth.accounts[0]).then(username => {
-        //   console.log('log=' + window.web3.eth.accounts[0])
-        //   console.log('log=' + username)
-        //   if (username) {
-        //     console.log('log=' + window.web3.eth.accounts[0])
-        //     console.log('log=' + username)
-        //   }
-        // })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-
-  
+new Vue({
+  el: '#app',
+  store,
+  router,
+  components: { App },
+  template: '<App/>'
 })
+
+CarManager.init()
+  .then(() => {
+    // console.log(self)
+    // console.log(CarManager)
+    window.CarManager = CarManager
+    // window.address = window.web3.eth.accounts[0];
+    /* eslint-disable no-new */
+
+
+    // CarManager.login(window.web3.eth.accounts[0]).then(username => {
+    //   console.log('log=' + window.web3.eth.accounts[0])
+    //   console.log('log=' + username)
+    //   if (username) {
+    //     console.log('log=' + window.web3.eth.accounts[0])
+    //     console.log('log=' + username)
+    //   }
+    // })
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+// window.addEventListener('load', function () {
+//   if (typeof web3 !== 'undefined') {
+//     console.log('Web3 injected browser: OK.')
+//     window.web3 = new Web3(window.web3.currentProvider)
+//   } else {
+//     console.log('Web3 injected browser: Fail. You should consider trying MetaMask.')
+//     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+//     window.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'))
+//   }
+//   CarManager.init()
+//       .then(() => {
+//         // console.log(self)
+//         // console.log(CarManager)
+//         window.CarManager = CarManager
+//         window.address = window.web3.eth.accounts[0];
+//         /* eslint-disable no-new */
+//
+//
+//         // CarManager.login(window.web3.eth.accounts[0]).then(username => {
+//         //   console.log('log=' + window.web3.eth.accounts[0])
+//         //   console.log('log=' + username)
+//         //   if (username) {
+//         //     console.log('log=' + window.web3.eth.accounts[0])
+//         //     console.log('log=' + username)
+//         //   }
+//         // })
+//       })
+//       .catch(err => {
+//         console.log(err)
+//       })
+//
+//
+// })

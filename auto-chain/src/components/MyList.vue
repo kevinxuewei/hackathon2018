@@ -19,7 +19,7 @@
     <!--<load-more tip="工作列表" :show-loading="false" background-color="#fbf9fe"></load-more>-->
     <group>
       <cell is-link @click.native="$router.push('/myCard')">
-        <span slot="title"><span style="vertical-align:middle;">我的车辆</span> 
+        <span slot="title"><span style="vertical-align:middle;">我的车辆</span>
         <!-- <badge text="3"></badge> -->
           </span>
       </cell>
@@ -38,7 +38,7 @@
 
 <script>
   import {LoadMore, Badge, Group, Cell, Box, Flexbox, FlexboxItem, XInput, XButton} from 'vux'
-
+  import { web3 } from 'wallet'
   export default {
     components: {
       XButton,
@@ -60,7 +60,7 @@
     },
     mounted() {
       console.log("mylist")
-      this.address = window.address.substring(0,20)+'...'
+      this.address = web3.eth.defaultAccount
       console.log(this.address)
       const self = this
       window.CarManager.login().then(username => {
