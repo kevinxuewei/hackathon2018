@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import {LoadMore, Badge, Group, Cell, Box, Flexbox, FlexboxItem, XInput, XButton} from 'vux'
+  import {LoadMore, Badge, Group, Cell, Box, Flexbox, FlexboxItem, XInput, XButton, AlertModule} from 'vux'
   import { web3 } from 'wallet'
   export default {
     components: {
@@ -49,7 +49,8 @@
       Box,
       Flexbox,
       FlexboxItem,
-      XInput
+      XInput,
+      AlertModule
     },
     data() {
       return {
@@ -60,7 +61,7 @@
     },
     mounted() {
       console.log("mylist")
-      this.address = web3.eth.defaultAccount
+      this.address = web3.eth.defaultAccount.substring(0,20)+'...'
       console.log(this.address)
       const self = this
       window.CarManager.login().then(username => {

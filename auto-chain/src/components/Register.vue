@@ -39,10 +39,17 @@ export default {
           content: '请输入用户名'
         })
       } else {
-        window.CarManager.signup(this.username).then(tx => {
-          console.log(tx)
-          self.$router.push('/success')
-        })
+        try {
+          window.CarManager.signup(this.username).then(tx => {
+            console.log(tx)
+            self.$router.push('/success')
+          })
+        } catch(err){
+          AlertModule.show({
+            title: '发生错误',
+            content: err.message
+          })
+        }
       }
     }
   }

@@ -1,5 +1,5 @@
-import contract from 'truffle-contract'
-import UsersContract from '@contracts/Users.json'
+// import contract from 'truffle-contract'
+// import UsersContract from '@contracts/Users.json'
 import {web3} from 'wallet'
 
 const Users = {
@@ -12,8 +12,8 @@ const Users = {
     let self = this
 
     return new Promise(function (resolve, reject) {
-      self.contract = contract(UsersContract)
-      self.contract.setProvider(window.web3.currentProvider)
+      // self.contract = contract(UsersContract)
+      // self.contract.setProvider(window.web3.currentProvider)
 
       // self.contract.deployed().then(instance => {
       //   self.instance = instance
