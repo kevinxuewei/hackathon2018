@@ -70,7 +70,10 @@ const CarManager = {
       // })
       let abi = require('@contracts/CarSaleManager.json').abi;
       try{
-        self.carsales = web3.loadContract(abi, process.env.CARMANAGER_ADDR)
+        self.carsales = web3.loadContract(abi, process.env.CARSALE_ADDR)
+        console.log(process.env.CARSALE_ADDR)
+        console.log("init carsales!")
+        console.log(self.carsales)
         window.web3 = web3
         window.address = web3.eth.defaultAccount
         resolve()
